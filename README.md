@@ -6,7 +6,7 @@ TrackThink : https://github.com/ubi-naist/TrackThink
 
 # System Architecture
 
-
+![システムフロー](src/img/Architecture.png)
 
 # Scrapbox API
 
