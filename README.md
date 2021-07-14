@@ -54,4 +54,5 @@ Scrapbox setting
 
 # Other
 Q：Why not HTTP POST request allowed in Scrapbox?
+
 A：Scrapbox is a system do not want bot to do write request in order to achieve service thought：[Ref in Japanese](https://scrapbox.io/shokai/WOM(Write_Only_Member)#5c4f85cc97c2910000a5c1f4)
