@@ -46,4 +46,4 @@ Scrapboxの内部処理用
 ### Url
 - https://scrapbox.io/help-jp/API
 - https://scrapbox.io/scrapboxlab/API
-- https://scrapbox.io/scrapboxlab/api%2Fpages%2F:projectname%2F:pagetitle
+- https://scrapbox.io/scrapboxlab/API%E3%81%AE%E6%9B%B8%E5%BC%8F
