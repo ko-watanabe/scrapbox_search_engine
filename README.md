@@ -47,3 +47,7 @@ Scrapboxの内部処理用
 - https://scrapbox.io/help-jp/API
 - https://scrapbox.io/scrapboxlab/API
 - https://scrapbox.io/scrapboxlab/API%E3%81%AE%E6%9B%B8%E5%BC%8F
+
+# その他
+Q：書き込みをスクレイピングで行っている理由
+A：Scrapbox の思想的にHTTP POSTの機能追加はしたくないため：[参考](https://scrapbox.io/shokai/WOM(Write_Only_Member)#5c4f85cc97c2910000a5c1f4)
