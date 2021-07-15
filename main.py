@@ -2,7 +2,7 @@ import requests
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
-def crawlWebsiteData(url):
+def crawl_website_data(url):
     print("== BEGIN Crawling Data from website ==")
     print("URL: " + url)
 
@@ -22,7 +22,7 @@ def crawlWebsiteData(url):
 
     return title, body
 
-def InsertDataIntoScrapbox(url, title, body):
+def insert_data_into_scrapbox(url, title, body):
     print("== BEGIN Insert Title and Body in Scrapbox ==")
     print(url)
     print(title)
@@ -43,7 +43,7 @@ if (response.status_code == 200):
     if result >= 0:
         print("END PROCESS : URL ALREADY STORED")
     else:
-        title, body = crawlWebsiteData(crawl_site_url)
-        InsertDataIntoScrapbox(crawl_site_url, title, body)
+        title, body = crawl_website_data(crawl_site_url)
+        insert_data_into_scrapbox(crawl_site_url, title, body)
 else:
     print("ERROR: Scrapbox URL store page not exists. Please create URL_storage_page")
