@@ -1,6 +1,5 @@
 import requests
 from urllib.request import urlopen
-import re
 from bs4 import BeautifulSoup
 
 # Prepare
