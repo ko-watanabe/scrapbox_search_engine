@@ -3,8 +3,8 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from time import sleep
-import chromedriver_binary
 from webdriver_manager.chrome import ChromeDriverManager
+import chromedriver_binary
 
 def crawl_website_data(url):
     print("== BEGIN Crawling Data from website ==")
@@ -26,23 +26,28 @@ def crawl_website_data(url):
 
     return title, body
 
-def insert_data_into_scrapbox(url, title, body):
+def insert_data_into_scrapbox(scrapbox_base_link, crawl_site_link, title, body):
     print("== BEGIN Insert Title and Body in Scrapbox ==")
     
     # Use ChromeDriver
     # REASON: Cannot do HTTP POST Request in Scrapbox (Check README)
-    driver = webdriver.Chrome(ChromeDriverManager().install())
-    driver.get('https://www.google.com/')
-    sleep(5)
-    search_box = driver.find_element_by_name("q")
-    search_box.send_keys('ChromeDriver')
-    search_box.submit()
-    sleep(5)
-    driver.quit()
+    options = webdriver.ChromeOptions()
+    # options.add_argument('--headless') # If you want to debug remove this code
+    options.add_argument('--disable-gpu')
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
-    print(url)
-    print(title)
-    print(body)
+    driver.get('https://scrapbox.io/login/google')
+    sleep(3)
+    email_input = driver.find_element_by_id("identifierId")
+    email_input.send_keys("ko.watanabe.0522@gmail.com")
+    
+    driver.find_element_by_xpath('//*[@id="passwordNext"]/div/button').click()
+    sleep(3)
+    # sleep(20)
+
+    # print(crawl_site_link)
+    # print(title)
+    # print(body)
 
 # Prepare
 scrapbox_base_link = "https://scrapbox.io/api/pages/trackthink-search-engine" # TODO: Be able to choose Scrapbox url freely
@@ -61,6 +66,6 @@ if (response.status_code == 200):
         print("END PROCESS : URL ALREADY STORED")
     else:
         title, body = crawl_website_data(crawl_site_link)
-        insert_data_into_scrapbox(crawl_site_link, title, body)
+        insert_data_into_scrapbox(scrapbox_base_link, crawl_site_link, title, body)
 else:
     print("ERROR: Scrapbox URL store page not exists. Please create URL_storage_page")
