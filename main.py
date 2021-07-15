@@ -24,7 +24,7 @@ def crawlWebsiteData(url):
     # Seperate Data from HTML
     soup = BeautifulSoup(html, "html.parser")
 
-    # GET Title Data
+    # GET TITLE Data
     title = soup.title.string
 
     # GET BODY Data
