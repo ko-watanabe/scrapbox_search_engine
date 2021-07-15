@@ -1,5 +1,6 @@
 import requests
 from urllib.request import urlopen
+import re
 
 # Insert URL
 url = input('Enter URL: ')
@@ -8,16 +9,23 @@ url = input('Enter URL: ')
 response = requests.get("https://scrapbox.io/api/pages/trackthink-search-engine/URL_storage_page/text")
 
 def crawlWebsiteData(url):
-    print("Crawl Data from website: " + url)
+    print("BEGIN Crawling Data from website: " + url)
+
+    # GET HTML Data
+    # Ref: https://realpython.com/python-web-scraping-practical-introduction/
     page = urlopen(url)
     html_bytes = page.read()
     html = html_bytes.decode("utf-8")
-    
-    start_index = html.find("<title>") + len("<title>")
-    end_index = html.find("</title>")
-    title = html[start_index:end_index]
-    
+
+    # GET Title Data
+    pattern = "<title.*?>.*?</title.*?>"
+    match_results = re.search(pattern, html, re.IGNORECASE)
+    title = match_results.group()
+    title = re.sub("<.*?>", "", title) # Remove HTML tags
     print(title)
+    
+    # GET BODY Data
+
 
 # Check if the page exists
 if (response.status_code == 200):
