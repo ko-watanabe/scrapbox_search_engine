@@ -38,12 +38,11 @@ def insert_data_into_scrapbox(scrapbox_base_link, crawl_site_link, title, body):
 
     driver.get('https://scrapbox.io/login/google')
     sleep(3)
-    email_input = driver.find_element_by_id("identifierId")
-    email_input.send_keys("ko.watanabe.0522@gmail.com")
+    # email_input = driver.find_element_by_id("identifierId")
+    # email_input.send_keys(email)
     
     driver.find_element_by_xpath('//*[@id="passwordNext"]/div/button').click()
     sleep(3)
-    # sleep(20)
 
     # print(crawl_site_link)
     # print(title)
