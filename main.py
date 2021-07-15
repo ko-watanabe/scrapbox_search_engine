@@ -3,14 +3,19 @@ from urllib.request import urlopen
 import re
 from bs4 import BeautifulSoup
 
+# Prepare
+# TODO: Be able to choose Scrapbox url freely
+scrapbox_url = "https://scrapbox.io/api/pages/trackthink-search-engine/URL_storage_page/text"
+
 # Insert URL
 url = input('Enter URL: ')
 
 # Request GET
-response = requests.get("https://scrapbox.io/api/pages/trackthink-search-engine/URL_storage_page/text")
+response = requests.get(scrapbox_url)
 
 def crawlWebsiteData(url):
-    print("BEGIN Crawling Data from website: " + url)
+    print("== BEGIN Crawling Data from website ==")
+    print("URL: " + url)
 
     # GET HTML Data
     page = urlopen(url)
@@ -28,6 +33,12 @@ def crawlWebsiteData(url):
     
     return title, body
 
+def InsertDataIntoScrapbox(url, title, body):
+    print("== BEGIN Insert Title and Body in Scrapbox ==")
+    print(url)
+    print(title)
+    print(body)
+
 # Check if the page exists
 if (response.status_code == 200):
     body = response.text
@@ -37,10 +48,8 @@ if (response.status_code == 200):
     if result >= 0:
         print("END PROCESS : URL ALREADY STORED")
     else:
-        print("URL NOT EXISTS")
         title, body = crawlWebsiteData(url)
-        print(title, body)
+        InsertDataIntoScrapbox(url, title, body)
 
 elif (response.status_code == 404):
     print("END PROCESS : PAGE NOT EXISTS")
-
