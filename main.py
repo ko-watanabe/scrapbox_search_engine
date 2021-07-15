@@ -1,6 +1,7 @@
 import requests
 from urllib.request import urlopen
 import re
+from bs4 import BeautifulSoup
 
 # Insert URL
 url = input('Enter URL: ')
@@ -12,20 +13,20 @@ def crawlWebsiteData(url):
     print("BEGIN Crawling Data from website: " + url)
 
     # GET HTML Data
-    # Ref: https://realpython.com/python-web-scraping-practical-introduction/
     page = urlopen(url)
     html_bytes = page.read()
     html = html_bytes.decode("utf-8")
 
-    # GET Title Data
-    pattern = "<title.*?>.*?</title.*?>"
-    match_results = re.search(pattern, html, re.IGNORECASE)
-    title = match_results.group()
-    title = re.sub("<.*?>", "", title) # Remove HTML tags
-    print(title)
-    
-    # GET BODY Data
+    # Seperate Data from HTML
+    soup = BeautifulSoup(html, "html.parser")
 
+    # GET Title Data
+    title = soup.title.string
+
+    # GET BODY Data
+    body = soup.getText() # TODO: It collects TITLE Data too so try to remove
+    
+    return title, body
 
 # Check if the page exists
 if (response.status_code == 200):
@@ -37,7 +38,8 @@ if (response.status_code == 200):
         print("END PROCESS : URL ALREADY STORED")
     else:
         print("URL NOT EXISTS")
-        crawlWebsiteData(url)
+        title, body = crawlWebsiteData(url)
+        print(title, body)
 
 elif (response.status_code == 404):
     print("END PROCESS : PAGE NOT EXISTS")
