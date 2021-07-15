@@ -2,16 +2,6 @@ import requests
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
-# Prepare
-# TODO: Be able to choose Scrapbox url freely
-scrapbox_url = "https://scrapbox.io/api/pages/trackthink-search-engine/URL_storage_page/text"
-
-# Insert URL
-url = input('Enter URL: ')
-
-# Request GET
-response = requests.get(scrapbox_url)
-
 def crawlWebsiteData(url):
     print("== BEGIN Crawling Data from website ==")
     print("URL: " + url)
@@ -29,7 +19,7 @@ def crawlWebsiteData(url):
 
     # GET BODY Data
     body = soup.getText() # TODO: It collects TITLE Data too so try to remove
-    
+
     return title, body
 
 def InsertDataIntoScrapbox(url, title, body):
@@ -38,17 +28,22 @@ def InsertDataIntoScrapbox(url, title, body):
     print(title)
     print(body)
 
-# Check if the page exists
+# Prepare
+scrapbox_url = "https://scrapbox.io/api/pages/trackthink-search-engine/URL_storage_page/text" # TODO: Be able to choose Scrapbox url freely
+crawl_site_url = input('Enter URL: ')
+
+# RUN Main part
+response = requests.get(scrapbox_url)
+
 if (response.status_code == 200):
     body = response.text
-    result = body.find(url)
+    result = body.find(crawl_site_url)
 
     # Check if the website is already stored
     if result >= 0:
         print("END PROCESS : URL ALREADY STORED")
     else:
-        title, body = crawlWebsiteData(url)
-        InsertDataIntoScrapbox(url, title, body)
-
-elif (response.status_code == 404):
-    print("END PROCESS : PAGE NOT EXISTS")
+        title, body = crawlWebsiteData(crawl_site_url)
+        InsertDataIntoScrapbox(crawl_site_url, title, body)
+else:
+    print("ERROR: Scrapbox URL store page not exists. Please create URL_storage_page")
