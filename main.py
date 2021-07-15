@@ -10,11 +10,14 @@ response = requests.get("https://scrapbox.io/api/pages/trackthink-search-engine/
 def crawlWebsiteData(url):
     print("Crawl Data from website: " + url)
     page = urlopen(url)
-    print(page)
     html_bytes = page.read()
     html = html_bytes.decode("utf-8")
-    print(html)
-
+    
+    start_index = html.find("<title>") + len("<title>")
+    end_index = html.find("</title>")
+    title = html[start_index:end_index]
+    
+    print(title)
 
 # Check if the page exists
 if (response.status_code == 200):
