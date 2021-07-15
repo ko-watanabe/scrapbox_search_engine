@@ -28,6 +28,9 @@ def crawl_website_data(url):
 
 def insert_data_into_scrapbox(url, title, body):
     print("== BEGIN Insert Title and Body in Scrapbox ==")
+    
+    # Use ChromeDriver
+    # REASON: Cannot do HTTP POST Request in Scrapbox (Check README)
     driver = webdriver.Chrome(ChromeDriverManager().install())
     driver.get('https://www.google.com/')
     sleep(5)
