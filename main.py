@@ -25,7 +25,8 @@ def crawl_website_data(url):
 
 def insert_data_into_scrapbox(scrapbox_base_link, crawl_site_link, title, body):
     print("== BEGIN Insert Title and Body in Scrapbox ==")
-    subprocess.run("open", scrapbox_base_link, "-a", "/Application/Safari.app", shell=True)
+    command = "open " + scrapbox_base_link
+    subprocess.Popen("open -a '/Applications/Google Chrome.app' http://google.com", shell = True)
     print("== BEGIN Insert Title and Body in Scrapbox ==")
     print(scrapbox_base_link)
     print(crawl_site_link)
