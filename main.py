@@ -1,10 +1,7 @@
 import requests
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
-from selenium import webdriver
-from time import sleep
-from webdriver_manager.chrome import ChromeDriverManager
-import chromedriver_binary
+import subprocess
 
 def crawl_website_data(url):
     print("== BEGIN Crawling Data from website ==")
@@ -28,25 +25,12 @@ def crawl_website_data(url):
 
 def insert_data_into_scrapbox(scrapbox_base_link, crawl_site_link, title, body):
     print("== BEGIN Insert Title and Body in Scrapbox ==")
-    
-    # Use ChromeDriver
-    # REASON: Cannot do HTTP POST Request in Scrapbox (Check README)
-    options = webdriver.ChromeOptions()
-    # options.add_argument('--headless') # If you want to debug remove this code
-    options.add_argument('--disable-gpu')
-    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
-
-    driver.get('https://scrapbox.io/login/google')
-    sleep(3)
-    # email_input = driver.find_element_by_id("identifierId")
-    # email_input.send_keys(email)
-    
-    driver.find_element_by_xpath('//*[@id="passwordNext"]/div/button').click()
-    sleep(3)
-
-    # print(crawl_site_link)
-    # print(title)
-    # print(body)
+    subprocess.run("open", scrapbox_base_link, "-a", "/Application/Safari.app", shell=True)
+    print("== BEGIN Insert Title and Body in Scrapbox ==")
+    print(scrapbox_base_link)
+    print(crawl_site_link)
+    print(title)
+    print(body)
 
 # Prepare
 scrapbox_base_link = "https://scrapbox.io/api/pages/trackthink-search-engine" # TODO: Be able to choose Scrapbox url freely
